@@ -10,8 +10,25 @@
     <body></body>
         
         <script>
-            console.log("Hello World")
+            let getComputerChoice = () =>  {
+                // create variable for the computer choice.
+                let compChoice = "";
+                // get random whole number between 0 and 2 (inclusive of 2)
+                let ranCompNum = Math.floor(Math.random() * 3);
+                // use switch case to assign each number to one of either rock, paper, or scissors as the computers choice
+                switch (ranCompNum) {
+                    case 0:
+                        compChoice = "Rock";
+                        break;
+                    case 1:
+                        compChoice = "Paper";
+                        break;
+                    case 2:
+                        compChoice = "Scissors"
+                }
+            }
 
+            getComputerChoice();
         </script>
     </body>
 </html>
