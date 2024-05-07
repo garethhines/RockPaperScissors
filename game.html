@@ -31,6 +31,7 @@
                     case 2:
                         compChoice = "scissors"
                 }
+                return compChoice;
             }
 
             let getHumanChoice = () => {
@@ -38,10 +39,68 @@
                 let userInput = prompt("rock, paper, or scissors?");
                 // lower case user input to simplify comparison
                 humanChoice = userInput.toLowerCase();
-
+                return humanChoice;
             }
             
+            let humanScore = 0;
+            let compScore = 0;
 
+            let playRound = (humanChoice, compChoice) => {
+
+                // logic for if player chose scissors
+                if (humanChoice === "scissors") {
+                    console.log("You picked scissors");
+                    if (compChoice === "scissors") {
+                    console.log("This round is a draw! You both chose Scissors");
+                    } else if (compChoice === 'rock') {
+                        console.log("Computer wins this round! Rock beats scissors")
+                        compScore += 1;
+                    } else if (compChoice === 'paper') {
+                        console.log("Player wins this round! Scissors beats paper")
+                        humanScore += 1;
+                    };
+                };
+
+                if (humanChoice === "rock") {
+                    if (compChoice === "rock") {
+                    console.log("This round is a draw! You both chose rock");
+                    } else if (compChoice === 'paper') {
+                        console.log("Computer wins this round! Paper beats rock")
+                        compScore += 1;
+                    } else if (compChoice === 'scissors') {
+                        console.log("Player wins this round! Rock beats scissors")
+                        humanScore += 1;
+                    };
+                };
+
+                if (humanChoice === "paper") {
+                    if (compChoice === "paper") {
+                    console.log("This round is a draw! You both chose paper");
+                    } else if (compChoice === 'scissors') {
+                        console.log("Computer wins this round! Scissors beats paper")
+                        compScore += 1;
+                    } else if (compChoice === 'rock') {
+                        console.log("Player wins this round! Paper beats rock")
+                        humanScore += 1;
+                    };
+                };
+
+                console.log(`The score is Player: ${humanScore}, Computer: ${compScore}`);
+
+            }
+
+            
+            // playRound(humanSelection, computerSelection);
+            
+            let playGame = rounds => {
+                for (let i = 0; i < rounds; i++){
+                    const humanSelection = getHumanChoice();
+                    const computerSelection = getComputerChoice();
+                    playRound(humanSelection, computerSelection);
+                };
+            };
+
+            playGame(4)
         </script>
     </body>
 </html>
