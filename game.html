@@ -6,14 +6,44 @@
     </head>
     <body></body>
         
+        <button id="rockChoice">ROCK</button>
+        <button id="paperChoice">PAPER</button>
+        <button id="scissorsChoice">SCISSORS</button>
+
+        <div id="resultDisplay"></div>
+        <div id="scoresDisplay"></div>
+
         <script>
 
+            let rockBtn = document.querySelector('#rockChoice')
+            let paperBtn = document.querySelector('#paperChoice')
+            let scissorsBtn = document.querySelector('#scissorsChoice')
+            let resultDisplay = document.querySelector('#resultDisplay')
+            let scoresDisplay = document.querySelector('#scoresDisplay')
+
+            
             // create variable for the computer choice.
             let compChoice = "";
-
+            
             // create variable for the human choice.
             let humanChoice = "";
-
+            
+            let playerPicksRock = () => {
+                humanChoice = 'rock';
+                console.log(humanChoice)
+            }
+            
+            let playerPicksPaper = () => {
+                humanChoice = 'paper';
+                console.log(humanChoice)
+            }
+            
+            let playerPicksScissors = () => {
+                humanChoice = 'scissors';
+                console.log(humanChoice)
+            }
+            
+            
             let getComputerChoice = () =>  {
                 // get random whole number between 0 and 2 (inclusive of 2)
                 let ranCompNum = Math.floor(Math.random() * 3);
@@ -22,79 +52,113 @@
                     case 0:
                         compChoice = "rock";
                         break;
-                    case 1:
-                        compChoice = "paper";
-                        break;
-                    case 2:
-                        compChoice = "scissors"
-                }
-                return compChoice;
-            }
+                        case 1:
+                            compChoice = "paper";
+                            break;
+                            case 2:
+                                compChoice = "scissors"
+                            }
+                            return compChoice;
+                        }
+                        
+                        // let getHumanChoice = () => {
+                            //     // get user input
+                            //     let userInput = prompt("rock, paper, or scissors?");
+                            //     // lower case user input to simplify comparison
+                            //     humanChoice = userInput.toLowerCase();
+                            //     return humanChoice;
+                            // }
+                            
+                            let humanScore = 0;
+                            let compScore = 0;
+                            
+                            let playRound = (humanChoice, compChoice) => {
+                                
+                                // logic for if player chose scissors
+                                if (humanChoice === "scissors") {
+                                    if (compChoice === "scissors") {
+                                        resultDisplay.textContent ="This round is a draw! You both chose Scissors";
+                                    } else if (compChoice === 'rock') {
+                                        resultDisplay.textContent = "Computer wins this round! Rock beats scissors";
+                                        compScore += 1;
+                                    } else if (compChoice === 'paper') {
+                                        resultDisplay.textContent = "Player wins this round! Scissors beats paper";
+                                        humanScore += 1;
+                                    };
+                                };
+                                
+                                if (humanChoice === "rock") {
+                                    console.log(compChoice)
+                                    if (compChoice === "rock") {
+                                        resultDisplay.textContent = "This round is a draw! You both chose rock";
+                                    } else if (compChoice === 'paper') {
+                                        resultDisplay.textContent = "Computer wins this round! Paper beats rock";
+                                        compScore += 1;
+                                    } else if (compChoice === 'scissors') {
+                                        resultDisplay.textContent = "Player wins this round! Rock beats scissors";
+                                        humanScore += 1;
+                                    }
+                                    console.log('player chose rock');
+                                };
+                                
+                                if (humanChoice === "paper") {
+                                    if (compChoice === "paper") {
+                                        resultDisplay.textContent = "This round is a draw! You both chose paper";
+                                    } else if (compChoice === 'scissors') {
+                                        resultDisplay.textContent = "Computer wins this round! Scissors beats paper";
+                                        compScore += 1;
+                                    } else if (compChoice === 'rock') {
+                                        resultDisplay.textContent = "Player wins this round! Paper beats rock";
+                                        humanScore += 1;
+                                    };
+                                };
 
-            let getHumanChoice = () => {
-                // get user input
-                let userInput = prompt("rock, paper, or scissors?");
-                // lower case user input to simplify comparison
-                humanChoice = userInput.toLowerCase();
-                return humanChoice;
-            }
-            
-            let humanScore = 0;
-            let compScore = 0;
+                                if (humanScore === 5){
+                                    scoresDisplay.textContent = null;
+                                    resultDisplay.textContent = 'Congratulations! You have won the game!'
+                                } else if (compScore === 5){
+                                    scoresDisplay.textContent = null;
+                                    resultDisplay.textContent = 'Tough luck, the computer has won!';
+                                };
+                                
+                                scoresDisplay.textContent = `The score is Player: ${humanScore}, Computer: ${compScore}`;
+                                
+                            }
+                            
+                            // let playGame = rounds => {
+                                //     for (let i = 0; i < rounds; i++){
+                                    //         const humanSelection = getHumanChoice();
+                                    //         const computerSelection = getComputerChoice();
+                                    //         playRound(humanSelection, computerSelection);
+                                    //     };
+                                    // };
+            rockBtn.addEventListener('click', function(){
+                playerPicksRock()});
 
-            let playRound = (humanChoice, compChoice) => {
+            rockBtn.addEventListener('click', function(){
+                getComputerChoice()}); 
 
-                // logic for if player chose scissors
-                if (humanChoice === "scissors") {
-                    console.log("You picked scissors");
-                    if (compChoice === "scissors") {
-                    console.log("This round is a draw! You both chose Scissors");
-                    } else if (compChoice === 'rock') {
-                        console.log("Computer wins this round! Rock beats scissors")
-                        compScore += 1;
-                    } else if (compChoice === 'paper') {
-                        console.log("Player wins this round! Scissors beats paper")
-                        humanScore += 1;
-                    };
-                };
+            rockBtn.addEventListener('click', function(){
+                playRound(humanChoice, compChoice)});
 
-                if (humanChoice === "rock") {
-                    if (compChoice === "rock") {
-                    console.log("This round is a draw! You both chose rock");
-                    } else if (compChoice === 'paper') {
-                        console.log("Computer wins this round! Paper beats rock")
-                        compScore += 1;
-                    } else if (compChoice === 'scissors') {
-                        console.log("Player wins this round! Rock beats scissors")
-                        humanScore += 1;
-                    };
-                };
+            paperBtn.addEventListener('click', function(){
+                playerPicksPaper()});
 
-                if (humanChoice === "paper") {
-                    if (compChoice === "paper") {
-                    console.log("This round is a draw! You both chose paper");
-                    } else if (compChoice === 'scissors') {
-                        console.log("Computer wins this round! Scissors beats paper")
-                        compScore += 1;
-                    } else if (compChoice === 'rock') {
-                        console.log("Player wins this round! Paper beats rock")
-                        humanScore += 1;
-                    };
-                };
+            paperBtn.addEventListener('click', function(){
+                getComputerChoice()}); 
 
-                console.log(`The score is Player: ${humanScore}, Computer: ${compScore}`);
+            paperBtn.addEventListener('click', function(){
+                playRound(humanChoice, compChoice)});
 
-            }
-            
-            let playGame = rounds => {
-                for (let i = 0; i < rounds; i++){
-                    const humanSelection = getHumanChoice();
-                    const computerSelection = getComputerChoice();
-                    playRound(humanSelection, computerSelection);
-                };
-            };
+            scissorsBtn.addEventListener('click', function(){
+                playerPicksScissors()});
 
-            playGame(4)
-        </script>
+            scissorsBtn.addEventListener('click', function(){
+                getComputerChoice()}); 
+
+            scissorsBtn.addEventListener('click', function(){
+                playRound(humanChoice, compChoice)});
+                                    
+                                    </script>
     </body>
-</html>
+    </html>
